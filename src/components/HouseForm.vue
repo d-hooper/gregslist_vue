@@ -15,12 +15,21 @@ const editableHouseData = ref({
   imgUrl: ''
 })
 
+async function createHouse() {
+  try {
+    await housesService.createHouse(editableHouseData.value)
+  }
+  catch (error) {
+    Pop.error(error, 'Could not create house listing');
+    logger.error('COULD NOT CREATE HOUSE LISTING', error)
+  }
+}
 
 </script>
 
 
 <template>
-  <form @submit.prevent="">
+  <form @submit.prevent="createHouse()">
     <div class="mb-3">
       <label for="updateHouseLevels">Number of Stories</label>
       <input v-model="editableHouseData.levels" id="updateHouseLevels" name="levels" type="number" required

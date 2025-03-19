@@ -5,10 +5,15 @@ import { AppState } from "@/AppState.js"
 
 class HousesService {
   async getHouses() {
-  const response = await api.get('api/houses')
-  const houses = response.data.map(pojo => new House(pojo))  
-  AppState.houses = houses
-}
+    const response = await api.get('api/houses')
+    const houses = response.data.map(pojo => new House(pojo))  
+    AppState.houses = houses
+  }
+  
+  async createHouse(houseData) {
+    const response = await api.post('api/houses', houseData)
+    logger.log('House added', response.data)
+  }
 
 }
 export const housesService = new HousesService()

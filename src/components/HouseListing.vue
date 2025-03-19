@@ -10,7 +10,7 @@ defineProps({
 
 <template>
   <div class="row rounded house-border border-vue shadow-lg mb-3">
-    <div class="col-md-8">
+    <div class="col-md-7">
       <div class="d-flex flex-column justify-content-between h-100">
         <div>
           <div>
@@ -18,14 +18,14 @@ defineProps({
               Home`}}</p>
           </div>
           <div class="d-flex justify-content-between mt-3">
-            <p class="fs-4">Listed Price: {{ houseProp.price.toLocaleString() }}</p>
-            <p class="fs-4">Built in {{ houseProp.year }}</p>
+            <p class="fs-4 fw-bold">Listed Price: {{ `$${houseProp.price.toLocaleString()}` }}</p>
+            <p class="fs-4 fw-bold">Built in {{ houseProp.year }}</p>
           </div>
           <div class="mt-3 fs-5">
             <p>{{ houseProp.description }} </p>
           </div>
         </div>
-        <div class="mb-3 d-flex justify-content-between">
+        <div class="d-flex justify-content-between mb-3">
           <div class="d-flex gap-2 align-items-center">
             <img :src="houseProp.creator.picture" class="creator-img">
             <span>{{ houseProp.creator.name }}</span>
@@ -33,7 +33,7 @@ defineProps({
         </div>
       </div>
     </div>
-    <div class="col-md-4 px-0">
+    <div class="col-md-5 px-0">
       <div>
         <img :src="houseProp.imgUrl"
              :alt="`A ${houseProp.levels}-Story Home with ${houseProp.bedrooms} bedrooms and ${houseProp.bathrooms} bathrooms`"

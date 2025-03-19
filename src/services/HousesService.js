@@ -10,6 +10,12 @@ class HousesService {
     AppState.houses = houses
   }
 
+  setActiveHouse(houseId) {
+    const houses = AppState.houses
+    const activeHouse = houses.find(house => house.id == houseId)
+    AppState.activeHouse = activeHouse
+  }
+
   async createHouse(houseData) {
     const response = await api.post('api/houses', houseData)
     const house = new House(response.data)

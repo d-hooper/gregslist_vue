@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import HouseDetails from '@/components/HouseDetails.vue';
 import HouseForm from '@/components/HouseForm.vue';
 import HouseListing from '@/components/HouseListing.vue';
 import { housesService } from '@/services/HousesService.js';
@@ -55,6 +56,7 @@ async function getHouses() {
       </div>
     </div>
   </section>
+  <HouseDetails />
 </template>
 
 

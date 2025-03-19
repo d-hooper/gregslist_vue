@@ -5,6 +5,7 @@ import { housesService } from '@/services/HousesService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
 import { computed } from 'vue';
+import HouseDetails from './HouseDetails.vue';
 
 defineProps({
   houseProp: { type: House, required: true }
@@ -28,6 +29,10 @@ async function deleteHouse(houseId) {
   }
 }
 
+function setActiveHouse(houseId) {
+  housesService.setActiveHouse(houseId)
+}
+
 </script>
 
 
@@ -36,9 +41,13 @@ async function deleteHouse(houseId) {
     <div class="col-md-7">
       <div class="d-flex flex-column justify-content-between h-100">
         <div>
-          <div>
-            <p class="fs-3 mb-3">{{ `${houseProp.levels}-Story ${houseProp.bedrooms} Bed ${houseProp.bathrooms} Bath
+          <div class="d-flex justify-content-between align-items-center py-2">
+            <p class="fs-3 mb-0">{{ `${houseProp.levels}-Story ${houseProp.bedrooms} Bed ${houseProp.bathrooms} Bath
               Home`}}</p>
+            <button @click="setActiveHouse(houseProp.id)" class="btn btn-outline-vue" type="button"
+                    title="See additional house details" data-bs-toggle="modal" data-bs-target="#houseDetailsModal">
+              Details
+            </button>
           </div>
           <div class="d-flex justify-content-between mt-3">
             <p class="fs-4 fw-bold">Listed Price: {{ `$${houseProp.price.toLocaleString()}` }}</p>
@@ -90,5 +99,9 @@ async function deleteHouse(houseId) {
   height: 3.6rem;
   aspect-ratio: 1/1;
   border-radius: 50%;
+}
+
+.btn-outline-vue:hover {
+  color: #f8f9fa;
 }
 </style>

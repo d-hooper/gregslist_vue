@@ -6,11 +6,11 @@ import { ref } from 'vue';
 
 
 const editableHouseData = ref({
-  levels: 0,
-  bedrooms: 0,
-  bathrooms: 0,
-  year: 0,
-  price: 0,
+  levels: null,
+  bedrooms: null,
+  bathrooms: null,
+  year: null,
+  price: null,
   description: '',
   imgUrl: ''
 })
@@ -18,6 +18,15 @@ const editableHouseData = ref({
 async function createHouse() {
   try {
     await housesService.createHouse(editableHouseData.value)
+    editableHouseData.value = {
+      levels: null,
+      bedrooms: null,
+      bathrooms: null,
+      year: null,
+      price: null,
+      description: '',
+      imgUrl: ''
+    }
   }
   catch (error) {
     Pop.error(error, 'Could not create house listing');
@@ -47,7 +56,7 @@ async function createHouse() {
     </div>
     <div class="mb-3">
       <label for="updateHouseYear">Year of Construction</label>
-      <input v-model="editableHouseData.year" id="updateHouseYear" name="year" type="number" required max="2025"
+      <input v-model="editableHouseData.year" id="updateHouseYear" name="year" type="number" required min="0" max="2025"
              placeholder="2015">
     </div>
     <div class="mb-3">

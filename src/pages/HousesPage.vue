@@ -50,9 +50,9 @@ async function getHouses() {
   </section>
   <section class="container">
     <div v-for="house in houses" :key="house.id" class="row my-4">
-      <col-12>
+      <div class="col-12">
         <HouseListing :houseProp="house" />
-      </col-12>
+      </div>
     </div>
   </section>
 </template>

@@ -1,10 +1,33 @@
 <script setup>
+import { AppState } from '@/AppState.js';
 import { House } from '@/models/House.js';
-
+import { housesService } from '@/services/HousesService.js';
+import { logger } from '@/utils/Logger.js';
+import { Pop } from '@/utils/Pop.js';
+import { computed } from 'vue';
 
 defineProps({
   houseProp: { type: House, required: true }
 })
+
+const account = computed(() => AppState.account)
+
+async function deleteHouse(houseId) {
+  try {
+    const confirmed = await Pop.confirm('Do you want to delete this listing?', 'This can not be undone', 'Yes', 'No')
+
+    if (!confirmed) {
+      return
+    }
+
+    await housesService.deleteHouse(houseId)
+  }
+  catch (error) {
+    Pop.error(error, 'Could not delete house');
+    logger.error('COULD NOT DELETE HOUSE', error)
+  }
+}
+
 </script>
 
 
@@ -25,10 +48,16 @@ defineProps({
             <p>{{ houseProp.description }} </p>
           </div>
         </div>
-        <div class="d-flex justify-content-between mb-3">
+        <div class="d-flex justify-content-between mb-3 align-items-center">
           <div class="d-flex gap-2 align-items-center">
             <img :src="houseProp.creator.picture" class="creator-img">
             <span>{{ houseProp.creator.name }}</span>
+          </div>
+          <div v-if="houseProp.creator.id == account?.id">
+            <button @click="deleteHouse(houseProp.id)" class="btn btn-outline-danger" type="button"
+                    title="Delete house listing">
+              Delete
+            </button>
           </div>
         </div>
       </div>
